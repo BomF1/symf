@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% for message in app.flashes('notice') %}
+		<div class="alert alert-success">
+			{{message}}
+		</div>
+	{% endfor %}
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Gender</th>
+					<th scope="col">Email</th>
+					<th scope="col">City</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for users in user %}
+					<tr>
+						<th scope="row">{{ users.id }}</th>
+						<td>{{ users.firstName}}</td>
+						<td>{{ users.lastName}}</td>
+						<td>{{ users.gender}}</td>
+						<td>{{ users.email}}</td>
+						{# {% for town in residence %}
+                            {% if town.id == users.city_id %}
+                            <td>{{ town.city }}</td>
+                            {% endif %}
+                        {% endfor %} #}
+
+						<td>
+							<a class="btn btn-warning" href="{{ path('update', { ('id') : users.id} ) }}">
+								Update
+							</a>
+							<a class="btn btn-danger" href="{{ path('delete', { ('id') : users.id} ) }}">
+								Delete
+							</a>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a class="btn btn-info" href="{{path('createUser')}}">
+			Creat new user
+		</a>
+		<a class="btn btn-info" href="{{path('addCity')}}">
+			Add new City
+		</a>
+	</div>
+{% endblock %}
